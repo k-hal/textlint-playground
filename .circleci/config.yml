@@ -19,19 +19,19 @@ jobs:
         key: deps-{{ .Branch }}-{{ checksum "package-lock.json" }}
         paths:
         - node_modules
+    - run:
+        command: curl -fSL https://github.com/haya14busa/reviewdog/releases/download/$REVIEWDOG_VERSION/reviewdog_linux_amd64 -o reviewdog && chmod +x ./reviewdog
+        name: install reviewdog
     - persist_to_workspace:
         root: .
         paths:
           - .
 
-  test:
+  textlint:
     <<: *defaults
     steps:
     - attach_workspace:
         at: .
-    - run:
-        command: curl -fSL https://github.com/haya14busa/reviewdog/releases/download/$REVIEWDOG_VERSION/reviewdog_linux_amd64 -o reviewdog && chmod +x ./reviewdog
-        name: install reviewdog
     - run:
         command: npx textlint *.md
         name: textlint
@@ -40,11 +40,27 @@ jobs:
     #     name: reviewdog
     #     when: on_fail
 
+  markdownlint:
+    <<: *defaults
+    steps:
+    - attach_workspace:
+        at: .
+    - run:
+        command: npx markdownlint *.md
+        name: markdownlint
+    # - run:
+    #     command: npx markdownlint *.md | ./reviewdog -diff="git diff master" -reporter=github-pr-review
+    #     name: reviewdog
+    #     when: on_fail
+
 workflows:
   version: 2
   test:
     jobs:
       - setup
-      - test:
+      - textlint:
+          requires:
+            - setup
+      - markdownlint:
           requires:
             - setup
