@@ -5,7 +5,7 @@ defaults: &defaults
   environment:
     REVIEWDOG_VERSION: 0.9.11
 
-version: 2
+version: 2.1
 jobs:
   setup:
     <<: *defaults
@@ -56,6 +56,21 @@ jobs:
 workflows:
   version: 2
   test:
+    jobs:
+      - setup
+      - textlint:
+          requires:
+            - setup
+      - markdownlint:
+          requires:
+            - setup
+  daily_workflow:
+    triggers:
+      - schedule:
+          cron: "0 20 * * *"
+          filters:
+            branches:
+              only: /master/
     jobs:
       - setup
       - textlint:
