@@ -1,7 +1,7 @@
 defaults: &defaults
   working_directory: ~/workspace
   docker:
-    - image : circleci/node:10.14
+    - image : circleci/node:16.13
   environment:
     REVIEWDOG_VERSION: 0.9.11
 
