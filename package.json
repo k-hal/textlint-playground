@@ -11,7 +11,7 @@
   "devDependencies": {
     "markdownlint": "0.27.0",
     "markdownlint-cli": "0.33.0",
-    "textlint": "13.0.5",
+    "textlint": "13.2.0",
     "textlint-rule-no-todo": "2.0.1",
     "textlint-rule-preset-ja-spacing": "2.3.0",
     "textlint-rule-preset-ja-technical-writing": "7.0.0",
