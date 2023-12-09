@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "markdownlint": "0.31.1",
+    "markdownlint": "0.32.1",
     "markdownlint-cli": "0.37.0",
     "textlint": "13.3.3",
     "textlint-rule-no-todo": "2.0.1",
